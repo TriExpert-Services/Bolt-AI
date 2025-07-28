@@ -51,7 +51,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
   } catch (error) {
     console.log(error);
 
-    throw new Response(null, {
+    return new Response(null, {
       status: 500,
       statusText: 'Internal Server Error',
     });
