@@ -17,6 +17,14 @@ CREATE TABLE transactions (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE flagged_transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_id INT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id)
+);
+
 CREATE TABLE kyc_submissions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,

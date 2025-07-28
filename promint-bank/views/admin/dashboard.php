@@ -18,6 +18,7 @@ if (!is_admin()) {
         <li><a href="dashboard.php" class="active">Dashboard</a></li>
         <li><a href="users.php">Manage Users</a></li>
         <li><a href="kyc-review.php">KYC Review</a></li>
+        <li><a href="flagged-transactions.php">Flagged Transactions</a></li>
         <li><a href="settings.php">Settings</a></li>
         <li><a href="../logout.php">Logout</a></li>
     </ul>
