@@ -26,10 +26,19 @@ $result = $conn->query($sql);
 <html>
 <head>
     <title>KYC Review</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
-    <h2>KYC Review</h2>
-    <table border="1">
+    <ul>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="users.php">Manage Users</a></li>
+        <li><a href="kyc-review.php" class="active">KYC Review</a></li>
+        <li><a href="settings.php">Settings</a></li>
+        <li><a href="../logout.php">Logout</a></li>
+    </ul>
+    <div class="container">
+        <h2>KYC Review</h2>
+        <table>
         <tr>
             <th>Username</th>
             <th>Document Type</th>

@@ -52,9 +52,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>KYC</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
-    <h2>KYC Submission</h2>
+    <ul>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="deposit.php">Deposit</a></li>
+        <li><a href="withdraw.php">Withdraw</a></li>
+        <li><a href="transactions.php">Transactions</a></li>
+        <li><a href="kyc.php" class="active">KYC</a></li>
+        <li><a href="../logout.php">Logout</a></li>
+    </ul>
+    <div class="container">
+        <h2>KYC Submission</h2>
     <?php if (isset($success)) { echo "<p>$success</p>"; } ?>
     <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
     <form method="post" action="" enctype="multipart/form-data">

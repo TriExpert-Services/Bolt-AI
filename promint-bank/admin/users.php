@@ -15,10 +15,19 @@ $result = $conn->query($sql);
 <html>
 <head>
     <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
-    <h2>Manage Users</h2>
-    <table border="1">
+    <ul>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="users.php" class="active">Manage Users</a></li>
+        <li><a href="kyc-review.php">KYC Review</a></li>
+        <li><a href="settings.php">Settings</a></li>
+        <li><a href="../logout.php">Logout</a></li>
+    </ul>
+    <div class="container">
+        <h2>Manage Users</h2>
+        <table>
         <tr>
             <th>ID</th>
             <th>Username</th>

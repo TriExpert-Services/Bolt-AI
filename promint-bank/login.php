@@ -33,8 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container">
     <h2>Login</h2>
     <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
     <form method="post" action="">

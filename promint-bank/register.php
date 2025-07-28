@@ -3,6 +3,11 @@ include 'includes/db.php';
 include 'includes/functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Create uploads directory if it doesn't exist
+    if (!file_exists('uploads')) {
+        mkdir('uploads', 0777, true);
+    }
+
     $username = sanitize_input($_POST['username']);
     $email = sanitize_input($_POST['email']);
     $password = sanitize_input($_POST['password']);
@@ -26,8 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container">
     <h2>Register</h2>
     <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
     <form method="post" action="">

@@ -16,10 +16,20 @@ $result = $stmt->get_result();
 <html>
 <head>
     <title>Transactions</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
-    <h2>Transactions</h2>
-    <table border="1">
+    <ul>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="deposit.php">Deposit</a></li>
+        <li><a href="withdraw.php">Withdraw</a></li>
+        <li><a href="transactions.php" class="active">Transactions</a></li>
+        <li><a href="kyc.php">KYC</a></li>
+        <li><a href="../logout.php">Logout</a></li>
+    </ul>
+    <div class="container">
+        <h2>Transactions</h2>
+        <table>
         <tr>
             <th>ID</th>
             <th>Amount</th>
