@@ -41,14 +41,19 @@ const messageParser = new StreamingMessageParser({
 
 export function useMessageParser() {
   const [parsedMessages, setParsedMessages] = useState<{ [key: number]: string }>({});
+  const [lastMessageCount, setLastMessageCount] = useState(0);
 
   const parseMessages = useCallback((messages: Message[], isLoading: boolean) => {
     let reset = false;
 
-    if (import.meta.env.DEV && !isLoading) {
+    // Only reset in development when messages are reduced (e.g., conversation cleared)
+    // Don't reset when just loading existing messages from persistence
+    if (import.meta.env.DEV && !isLoading && messages.length < lastMessageCount) {
       reset = true;
       messageParser.reset();
     }
+
+    setLastMessageCount(messages.length);
 
     for (const [index, message] of messages.entries()) {
       if (message.role === 'assistant') {
@@ -60,7 +65,7 @@ export function useMessageParser() {
         }));
       }
     }
-  }, []);
+  }, [lastMessageCount]);
 
   return { parsedMessages, parseMessages };
 }
