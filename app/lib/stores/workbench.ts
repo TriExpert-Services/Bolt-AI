@@ -35,7 +35,7 @@ export class WorkbenchStore {
   currentView: WritableAtom<WorkbenchViewType> = import.meta.hot?.data.currentView ?? atom('code');
   unsavedFiles: WritableAtom<Set<string>> = import.meta.hot?.data.unsavedFiles ?? atom(new Set<string>());
   modifiedFiles = new Set<string>();
-  artifactIdList: string[] = import.meta.hot?.data.artifactIdList ?? [];
+  artifactIdList: string[] = [];
 
   constructor() {
     if (import.meta.hot) {
@@ -43,7 +43,6 @@ export class WorkbenchStore {
       import.meta.hot.data.unsavedFiles = this.unsavedFiles;
       import.meta.hot.data.showWorkbench = this.showWorkbench;
       import.meta.hot.data.currentView = this.currentView;
-      import.meta.hot.data.artifactIdList = this.artifactIdList;
     }
   }
 
