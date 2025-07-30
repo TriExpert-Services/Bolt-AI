@@ -4,6 +4,7 @@ import { chatStore } from '~/lib/stores/chat';
 import { classNames } from '~/utils/classNames';
 import { HeaderActionButtons } from './HeaderActionButtons.client';
 import { ChatDescription } from '~/lib/persistence/ChatDescription.client';
+// import { PersistentStorageControls } from '~/components/storage/PersistentStorageControls';
 
 export function Header() {
   const chat = useStore(chatStore);

@@ -1,10 +1,13 @@
 import { motion, type Variants } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useStore } from '@nanostores/react';
 import { Dialog, DialogButton, DialogDescription, DialogRoot, DialogTitle } from '~/components/ui/Dialog';
 import { IconButton } from '~/components/ui/IconButton';
 import { ThemeSwitch } from '~/components/ui/ThemeSwitch';
 import { db, deleteById, getAll, chatId, type ChatHistoryItem } from '~/lib/persistence';
+// import { PersistentStorageControls } from '~/components/storage/PersistentStorageControls';
+import { chatStore } from '~/lib/stores/chat';
 import { cubicEasingFn } from '~/utils/easings';
 import { logger } from '~/utils/logger';
 import { HistoryItem } from './HistoryItem';
@@ -118,6 +121,12 @@ export function Menu() {
             Start new chat
           </a>
         </div>
+        {/* Temporary disabled persistent storage
+        <div className="p-4 border-b border-bolt-elements-borderColor">
+          <div className="text-bolt-elements-textPrimary font-medium mb-2">Persistent Storage</div>
+          <PersistentStorageControls messages={[]} className="text-xs" />
+        </div>
+        */}
         <div className="text-bolt-elements-textPrimary font-medium pl-6 pr-5 my-2">Your Chats</div>
         <div className="flex-1 overflow-scroll pl-4 pr-5 pb-5">
           {list.length === 0 && <div className="pl-2 text-bolt-elements-textTertiary">No previous conversations</div>}
