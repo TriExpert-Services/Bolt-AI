@@ -29,5 +29,30 @@ export function getApiKeysFromCookie(cookieHeader: string | null): Record<string
 
 export function getProviderSettingsFromCookie(cookieHeader: string | null): Record<string, any> {
   const cookies = parseCookies(cookieHeader);
-  return cookies.providers ? JSON.parse(cookies.providers) : {};
+  
+  // Ensure Ollama is always enabled regardless of cached settings
+  const defaultSettings = {
+    Ollama: {
+      enabled: true,
+      baseUrl: 'http://127.0.0.1:11434'
+    }
+  };
+  
+  try {
+    const cookieSettings = cookies.providers ? JSON.parse(cookies.providers) : {};
+    
+    // Merge with defaults to ensure Ollama is enabled
+    return {
+      ...defaultSettings,
+      ...cookieSettings,
+      Ollama: {
+        ...defaultSettings.Ollama,
+        ...(cookieSettings.Ollama || {}),
+        enabled: true // Force enable Ollama
+      }
+    };
+  } catch (error) {
+    console.error('Error parsing provider settings from cookies:', error);
+    return defaultSettings;
+  }
 }

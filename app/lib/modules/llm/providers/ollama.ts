@@ -72,8 +72,9 @@ export default class OllamaProvider extends BaseProvider {
       defaultApiTokenKey: '',
     });
 
+    // Ensure baseUrl is always set for Ollama
     if (!baseUrl) {
-      throw new Error('No baseUrl found for OLLAMA provider');
+      baseUrl = 'http://127.0.0.1:11434';
     }
 
     if (typeof window === 'undefined') {
@@ -87,17 +88,24 @@ export default class OllamaProvider extends BaseProvider {
       baseUrl = isDocker ? baseUrl.replace('127.0.0.1', 'host.docker.internal') : baseUrl;
     }
 
-    const response = await fetch(`${baseUrl}/api/tags`);
-    const data = (await response.json()) as OllamaApiResponse;
+    try {
+      const response = await fetch(`${baseUrl}/api/tags`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch models: ${response.status} ${response.statusText}`);
+      }
+      const data = (await response.json()) as OllamaApiResponse;
 
-    // console.log({ ollamamodels: data.models });
-
-    return data.models.map((model: OllamaModel) => ({
-      name: model.name,
-      label: `${model.name} (${model.details.parameter_size})`,
-      provider: this.name,
-      maxTokenAllowed: 8000,
-    }));
+      return data.models.map((model: OllamaModel) => ({
+        name: model.name,
+        label: `${model.name} (${model.details.parameter_size})`,
+        provider: this.name,
+        maxTokenAllowed: 8000,
+      }));
+    } catch (error) {
+      console.error('Error fetching Ollama models:', error);
+      // Return empty array instead of throwing to prevent frontend errors
+      return [];
+    }
   }
 
   getModelInstance: (options: {
@@ -117,9 +125,9 @@ export default class OllamaProvider extends BaseProvider {
       defaultApiTokenKey: '',
     });
 
-    // Backend: Check if we're running in Docker
+    // Ensure baseUrl is always set for Ollama
     if (!baseUrl) {
-      throw new Error('No baseUrl found for OLLAMA provider');
+      baseUrl = 'http://127.0.0.1:11434';
     }
 
     const isDocker = process?.env?.RUNNING_IN_DOCKER === 'true' || envRecord.RUNNING_IN_DOCKER === 'true';

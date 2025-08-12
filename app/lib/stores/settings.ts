@@ -60,13 +60,13 @@ const isBrowser = typeof window !== 'undefined';
 const getInitialProviderSettings = (): ProviderSetting => {
   const initialSettings: ProviderSetting = {};
 
-  // Start with default settings
+  // Start with default settings - enable all providers by default
   PROVIDER_LIST.forEach((provider) => {
     initialSettings[provider.name] = {
       ...provider,
       settings: {
-        // Local providers should be disabled by default
-        enabled: !LOCAL_PROVIDERS.includes(provider.name),
+        // Enable all providers including local ones by default
+        enabled: true,
       },
     };
   });

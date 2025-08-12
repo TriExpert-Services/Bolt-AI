@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { IconButton } from '~/components/ui/IconButton';
 import type { ProviderInfo } from '~/types/model';
 import Cookies from 'js-cookie';
+import { LOCAL_PROVIDERS } from '~/lib/stores/settings';
 
 interface APIKeyManagerProps {
   provider: ProviderInfo;
@@ -84,6 +85,20 @@ export const APIKeyManager: React.FC<APIKeyManagerProps> = ({ provider, apiKey, 
 
     setIsEditing(false);
   };
+
+  const isLocalProvider = LOCAL_PROVIDERS.includes(provider.name);
+
+  if (isLocalProvider) {
+    return (
+      <div className="flex items-center justify-between py-3 px-1">
+        <div className="flex items-center gap-2 flex-1">
+          <span className="text-sm font-medium text-bolt-elements-textSecondary">
+            {provider.name} is running locally - no API key required
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-between py-3 px-1">
