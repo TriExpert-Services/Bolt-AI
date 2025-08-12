@@ -219,6 +219,25 @@ For providers that support custom base URLs (such as Ollama or LM Studio), follo
 
 > **Note**: Custom base URLs are particularly useful when running local instances of AI models or using custom API endpoints.
 
+### Ollama Models Configuration
+
+To use Ollama with bolt.diy:
+
+1. Install and run Ollama on your local machine (https://ollama.ai)
+2. Configure the Ollama base URL in settings (default: http://localhost:11434)
+3. Pull your desired models using the Ollama CLI (e.g., `ollama pull codellama`)
+4. Available models will be automatically detected and listed in the model selection dropdown
+5. Common Ollama models for coding tasks:
+   - codellama (recommended)
+   - llama2
+   - mistral
+   - neural-chat
+   - openchat
+   - phind-codellama
+   - wizardcoder
+
+> **Note**: When using Ollama, ensure the Ollama service is running locally before starting bolt.diy. The model must be pulled using the Ollama CLI before it can be used in bolt.diy.
+
 ### Supported Providers
 
 - Ollama
