@@ -1,26 +1,37 @@
-FROM node:20-alpine
+# ❗ Cambiamos de alpine -> debian (glibc)
+FROM node:20-bookworm-slim
 
-# utilidades
-RUN apk add --no-cache bash
+# Paquetes necesarios para wrangler/workerd
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash ca-certificates libc++1 \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+# Copiamos sólo manifest para cache de deps
 COPY package.json pnpm-lock.yaml* ./
 
-# PNPM + deps
-RUN corepack enable && corepack prepare pnpm@latest --activate && pnpm i
+# PNPM + deps (usa Corepack)
+RUN corepack enable \
+ && corepack prepare pnpm@latest --activate \
+ && pnpm install --frozen-lockfile
 
-# copia código
+# Copiamos el resto del código
 COPY . .
 
-# build de bolt
-RUN pnpm build \
- && pnpm add -D wrangler \
- && chmod +x bindings.sh
+# Build del proyecto
+RUN chmod +x bindings.sh \
+ && pnpm build
 
-# puerto para EasyPanel
+# Wrangler como devDependency (por si no quedó en el lock)
+RUN pnpm add -D wrangler
+
+# Puerto interno
 ENV PORT=3000
+# Evita telemetry de wrangler en contenedor
+ENV WRANGLER_SEND_METRICS=false
 
-# EntryPoint hace: genera bindings y arranca wrangler pages dev
+# Entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
